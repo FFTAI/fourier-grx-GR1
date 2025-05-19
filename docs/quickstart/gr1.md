@@ -20,15 +20,8 @@ has_toc: true
 当我们拿到机器人后，首先需要将机器人开机。
 
 1. 接通机器人的电池电源开关。
-   ![power_button.png](/assets/images/power_button.png)
-
 2. 确保机器人的急停按钮处于松开状态。
-   ![emergent_stop_button.png](/assets/images/emergent_stop_button.png)
-
-3. 长按机器人的电源按钮 3 秒钟，直到指示灯呈现 <span style="color: purple;">紫色慢闪</span> 状态。
-   ![switch.png](/assets/images/switch.png)
-
-4. 确认所有关节执行器的指示灯为 <span style="color: purple;">紫色慢闪</span> 状态（正常工作状态）。
+3. 确认所有关节执行器的指示灯为 <span style="color: purple;">紫色慢闪</span> 状态（正常工作状态）。
 
 ## 登录系统
 
@@ -36,7 +29,8 @@ has_toc: true
 
 连接机器人控制电脑的 HDMI 显示器和 USB 键盘鼠标，开机后会自动进入系统桌面。用户信息如下：
 
-- 用户名为 `gr2m25{month}{serial number}`
+- 用户名为 `gr1{type}{month}{serial number}`
+    - `type` 为机器人型号，如 `t1` 或 `t2`
     - `month` 为生产月份缩写，如 `ja` 代表 1 月，`fe` 代表 2 月，`mr` 代表 3 月，依次类推
     - `serial number` 为机器人的序列号
 - 用户密码为 `fftai2015`
@@ -45,7 +39,8 @@ has_toc: true
 
 机器人开机后，系统会自动启动机器人主控系统的热点信号，用户可以通过手机或电脑连接机器人的热点信号。
 
-- 热点名称为 `gr2m25{month}{serial number}`
+- 热点名称为 `gr1{type}{month}{serial number}`
+    - `type` 为机器人型号，如 `t1` 或 `t2`
     - `month` 为生产月份缩写，如 `ja` 代表 1 月，`fe` 代表 2 月，`mr` 代表 3 月，依次类推
     - `serial number` 为机器人的序列号
 - 热点密码为 `66668888`。
@@ -55,13 +50,20 @@ has_toc: true
 
 > **说明**：
 >
-> 部分生产的 Fourier GR1 机器人没有配置自动热点模式，因此搜不到热点信号，此时可以考虑用有线网络方式连接机器人。
-> 机器人主控电脑的有线网口 IP 地址为 `192.168.137.220`, ssh 登录信息与本地登录方式相同。
+> - 部分生产的 Fourier GR1 机器人没有配置自动热点模式，因此搜不到热点信号，此时可以考虑用有线网络方式连接机器人。
+> - 机器人主控电脑的有线网口 IP 地址为 `192.168.137.220`, ssh 登录信息与本地登录方式相同。
+
+
+> **说明**：
+>
+> - 部份旧款机器人使用 IP 地址为 `192.168.137.200`，更新固件后会被自动更新到 `192.168.137.220`。
+> - 部份旧款机器人使用 Ubuntu 为 20.04 版本，需要更新到 Ubuntu 22.04 才能使用 `fourier-grx` 工具。
+> - Ubuntu 系统升级方法可以参考 [Ubuntu系统升级](/docs/usage#ubuntu系统升级)。
 
 ## 程序启动
 
-机器人出厂时，默认已经为安装好了 `fourier-grx` 软件工具。
-如果发现没有安装，可以去 [固件更新](/docs/update) 页面查看下载和安装流程。
+GR1 机器人出厂时，默认是没有安装 `fourier-grx` 软件工具。
+需要安装对应 SDK 程序，可以去 [固件更新](/docs/update) 页面查看下载和安装流程。
 
 该软件工具提供了 `fourier-grx start` 命令用于机器人控制程序启动。
 
@@ -111,7 +113,8 @@ git clone https://github.com/FFTAI/Wiki-GRx-Deploy.git --branch=FourierGR1
 conda activate fourier-grx
 
 # 启动 fourier-grx 主程序
-python $HOME/fourier-grx/whl/run.py --config=$HOME/fourier-grx/config/FourierGR1/config_GR1__sdk.yaml
+python $HOME/fourier-grx/whl/run.py --config=$HOME/fourier-grx/config/FourierGR1/config_GR1_T1_sdk.yaml  # GR1T1 机型
+python $HOME/fourier-grx/whl/run.py --config=$HOME/fourier-grx/config/FourierGR1/config_GR1_T2_sdk.yaml  # GR1T2 机型
 
 # 当看到提示信息 ”You can start playing with the robot right now.“ 时，表示程序启动成功。
 ```
