@@ -174,6 +174,9 @@ sudo apt update
 # 升级程序
 sudo apt upgrade
 
+# 重启系统
+sudo reboot
+
 # 升级系统
 sudo do-release-upgrade
 ```
