@@ -10,6 +10,10 @@ toc_max_header: 3  # 最大显示标题层级（如 H3）
 
 # 欢迎来到 Fourier-GRX-GR1 SDK 开发文档
 
+> ⚠ **注意**
+>
+> - 目前 `fourier-grx-GR1` 仅针对 GR1 强化学习相关内容做支持，其他方面的开发支持后续会更换新的软件支持平台。
+
 ## 介绍
 
 Fourier-GRX-GR1 SDK 是傅利叶智能提供的一个软件开发工具包，

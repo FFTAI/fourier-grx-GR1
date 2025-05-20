@@ -132,20 +132,15 @@ key 说明列表：
 - 任务指令通过 fourier_grx.TaskCommand 枚举类定义，具体定义如下：
 - 具体任务值可能会根据机器人的不同，或 `fourier-grx` 版本的不同而有所变化，具体值以实际为准。
 
-| 任务指令                  | 任务值  | 适用机型 | 任务描述                                              |
-|-----------------------|------|------|---------------------------------------------------|
-| TASK_SERVO_OFF        | 36   | All  | 机器人全关节下电失能                                        |
-| TASK_SERVO_ON         | 35   | All  | 机器人全关节上电使能                                        |
-| TASK_CLEAR_FAULT      | 34   | All  | 清除机器人全关节报警                                        |
-| TASK_SET_HOME         | 999  | All  | 设置机器人全关节零位位置为当前位置                                 |
-| TASK_TEST_JOINT       | 902  | All  | 机器人关节运动功能测试，用于检测机器人关节是否能够正常运动                     |
-| TASK_READY_STATE      | 960  | All  | 机器人运行到 **准备状态**，为微曲膝关节的站立姿态                       |
-| TASK_WALK             | 965  | All  | 机器人运动到 **行走状态**，可以用手柄控制机器人行走                      |
-| TASK_RUN              | 966  | GR1   | 机器人运动到 **跑步状态**，可以用手柄控制机器人行走/跑步                   |
-| (后续为 v2.3.19 新增功能）    |      |      |
-| TASK_BEND_KNEE        | 3601 | GR1   | 下蹲任务，会执行一次蹲下，再蹲起的动作。<br/>⚠️请在平地使用，并确保周围人员安全。      |
-| TASK_CLIMB_FORWARD    | 3602 | GR1   | 正面爬起任务，请确保机器人趴在地面正面朝下时使用。<br/>⚠️请在平地使用，并确保周围人员安全。 |
-| TASK_STAND_ON_ONE_LEG | 3603 | GR1   | 单脚站立任务，循环播放两次左右脚单脚站立功能。<br/>⚠️请在平地使用，并确保周围人员安全。   |
+| 任务指令             | 任务值 | 适用机型 | 任务描述                          |
+|------------------|-----|------|-------------------------------|
+| TASK_SERVO_OFF   | 36  | All  | 机器人全关节下电失能                    |
+| TASK_SERVO_ON    | 35  | All  | 机器人全关节上电使能                    |
+| TASK_CLEAR_FAULT | 34  | All  | 清除机器人全关节报警                    |
+| TASK_SET_HOME    | 999 | All  | 设置机器人全关节零位位置为当前位置             |
+| TASK_TEST_JOINT  | 902 | All  | 机器人关节运动功能测试，用于检测机器人关节是否能够正常运动 |
+| TASK_READY_STATE | 960 | All  | 机器人运行到 **准备状态**，为微曲膝关节的站立姿态   |
+| TASK_WALK        | 965 | All  | 机器人运动到 **行走状态**，可以用手柄控制机器人行走  |
 
 - All：表示所有傅利叶智能生产机型
 - GR1：表示傅利叶 GR1 系列机型
@@ -166,20 +161,9 @@ key 说明列表：
 
 GR1 机器人模块指令列表：
 
-| 任务指令      | 模块指令                         | 模块值  | 模块描述  |
-|-----------|------------------------------|------|-------|
-| TASK_WALK | COMPONENT_NATURAL_WAVE       | 3407 | 自然摆臂  |
-| TASK_WALK | COMPONENT_WAVE_LEFT_HAND     | 2412 | 左手打招呼 |
-| TASK_WALK | COMPONENT_WAVE_RIGHT_HAND    | 2411 | 右手打招呼 |
-| TASK_WALK | COMPONENT_RAISE_RIGHT_BOXING | 3408 | 右手握拳  |
-| TASK_WALK | COMPONENT_RAISE_RIGHT_HAND   | 3409 | 右手举起  |
-| TASK_WALK | COMPONENT_SPREAD_HAND        | 3410 | 双手张开  |
-| TASK_RUN  | COMPONENT_NATURAL_WAVE       | 3407 | 自然摆臂  |
-| TASK_RUN  | COMPONENT_WAVE_LEFT_HAND     | 2412 | 左手打招呼 |
-| TASK_RUN  | COMPONENT_WAVE_RIGHT_HAND    | 2411 | 右手打招呼 |
-| TASK_RUN  | COMPONENT_RAISE_RIGHT_BOXING | 3408 | 右手握拳  |
-| TASK_RUN  | COMPONENT_RAISE_RIGHT_HAND   | 3409 | 右手举起  |
-| TASK_RUN  | COMPONENT_SPREAD_HAND        | 3410 | 双手张开  |
+| 任务指令      | 模块指令                   | 模块值  | 模块描述 |
+|-----------|------------------------|------|------|
+| TASK_WALK | COMPONENT_NATURAL_WAVE | 3407 | 自然摆臂 |
 
 ### grx/client 接口协议 (指令信息)
 
