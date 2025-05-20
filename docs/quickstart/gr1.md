@@ -57,8 +57,7 @@ has_toc: true
 > ℹ️ **说明**：
 >
 > - 部份旧款 GR1 机器人使用 IP 地址为 `192.168.137.200`，更新固件后会被自动更新到 `192.168.137.220`。安装更新过程如果出现 ssh 断联，需要重新连接并重新运行安装程序。
-> - 部份旧款 GR1 机器人使用 Ubuntu 为 20.04 版本，需要更新到 Ubuntu 22.04 才能使用 `fourier-grx` 工具。
-> - Ubuntu 系统升级方法可以参考 [Ubuntu系统升级](/docs/usage#ubuntu系统升级)。
+> - 部份旧款 GR1 机器人使用 Ubuntu 为 20.04 版本，需要更新到 Ubuntu 22.04 才能使用 `fourier-grx` 工具。 Ubuntu 系统升级方法可以参考 [Ubuntu系统升级](/docs/usage#ubuntu系统升级)。
 
 ## 程序启动
 
