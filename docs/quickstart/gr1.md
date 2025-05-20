@@ -112,7 +112,7 @@ git clone https://github.com/FFTAI/Wiki-GRx-Deploy.git --branch=FourierGR1
 # 激活 conda 环境
 conda activate fourier-grx
 
-# 启动 fourier-grx 主程序
+# 启动 fourier-grx 主程序 （不同机型使用不同配置文件参数）
 python $HOME/fourier-grx/whl/run.py --config=$HOME/fourier-grx/config/FourierGR1/config_GR1_T1_sdk.yaml  # GR1T1 机型
 python $HOME/fourier-grx/whl/run.py --config=$HOME/fourier-grx/config/FourierGR1/config_GR1_T2_sdk.yaml  # GR1T2 机型
 
