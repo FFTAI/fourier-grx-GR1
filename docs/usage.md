@@ -68,7 +68,7 @@ fourier-grx start
 
 2. **校准验证**
     - 成功标志
-        - 终端显示校准存储的绝对编码器值
+        - 终端显示校准存储的绝对编码器校准值
         - 在路径 `$HOME/fourier-grx/resource/gr1` 中存储有更新后的 `sensor_offset.json` 数据文件
     - 失败情况
         - 报错信息提示
