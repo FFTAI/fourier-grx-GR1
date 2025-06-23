@@ -1,1 +1,1 @@
-# fourier-grx-GR1.github.io
+# fourier-grx-GR1
