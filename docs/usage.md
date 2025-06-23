@@ -14,7 +14,7 @@ has_toc: true
 
 ## 固件安装和更新
 
-Fourier-GRX-GR1 SDK 安装文件请从 [固件更新](/docs/update) 下载。
+Fourier-GRX-GR1 SDK 安装文件请从 [固件更新](/fourier-grx-GR1/docs/update) 下载。
 下载完后，运行下面的指令完成安装过程：
 
 ```
@@ -29,14 +29,15 @@ fourier-grx install
 
 | 机器人型号 | 机器人版本 | 测试机型 | [运行模式](/docs/usage#运行模式选择) | 适配的机器人型号 |
 |-------|-------|------|----------------------------|----------|
-| GR1   | 无     | 否    | 开发者模式                      | GR1      |
+| GR1   | T1    | 否    | 开发者模式                      | GR1T1    |
+| GR1   | T2    | 否    | 开发者模式                      | GR1T2    |
 
 如若配置错误，可运行 `fourier-grx config` 进行重新配置。当前的配置信息可以通过 `fourier-grx list` 查看。
 
 ## 关节零位校准
 
 > ℹ️ **说明**
-> 
+>
 > 使用内置校准任务，可以在【调试模式】下用手柄选中执行，也可以在【开发者模式】下通过调用对应任务接口执行。
 
 ### 启动前检查
@@ -150,7 +151,7 @@ fourier-grx start
 开发者模式下，用户可以参考开源开发接口进行二次开发，
 具体的开发接口和示例程序可以参考：
 
-- 开发接口：[参考指南](/docs/reference)
+- 开发接口：[参考指南](/fourier-grx-GR1/docs/reference)
 - 示例程序：[Wiki-GRx-Deploy](https://github.com/FFTAI/Wiki-GRx-Deploy)
 
 ## 程序开机自启动
@@ -165,20 +166,82 @@ fourier-grx disable_service # 关闭程序开机自启动
 如果机器人已经配置为用手柄进行遥控操作。
 开启开机自启动后，请确保机器人手柄在开机前已连接到主控电脑的 USB 端口，并处于唤醒状态。
 
-## Ubuntu系统升级
+## 启用/关闭 程序运行日志记录功能
 
-在使用 Fourier-GRX-GR1 SDK 时，推荐使用 Ubuntu 22.04 LTS 版本。如果机器本身不为该版本，可以通过以下指令进行系统升级：
+fourier-grx 提供了程序运行日志记录功能，默认情况下是开启的，且不提供关闭功能。
+
+如果一定希望关闭程序运行日志记录功能，可以修改程序启动脚本 `run.sh` 中的以下字段：
+
+> ⚠️ **注意**：
+>
+> 修改该脚本会导致无法记录程序运行日志，可能会影响后续的调试和问题排查。
 
 ```bash
-# 更新系统
-sudo apt update
+# 原始脚本内容
+stdbuf -oL $FOURIER_GRX_HOME/run.bin --config=${config_file_path} \
+| tee $FOURIER_GRX_HOME/log/${log_file_name}
 
-# 升级程序
-sudo apt upgrade
-
-# 重启系统
-sudo reboot
-
-# 升级系统
-sudo do-release-upgrade
+# 修改后的脚本内容
+stdbuf -oL $FOURIER_GRX_HOME/run.bin --config=${config_file_path} \
+| tee /dev/null
 ```
+
+## 启用/关闭 机器人数据日志记录功能
+
+fourier-grx 提供了数据日志记录功能，但是默认情况下是关闭的，以减少对系统性能的影响。
+
+如果需要启用数据日志记录功能，需要对 **配置文件** 进行手动修改，具体修改步骤如下：
+
+1. 创建机器人的启动配置文件：
+    - 打开文件夹 `~/fourier-grx/config/gr1` 文件夹，找到当前使用的配置文件，比如 `config_GR1__debug.yaml`。
+    - 将该文件复制一份，命名为 `config_GR1__record.yaml`。
+
+2. 修改配置文件：
+    - 打开 `config_GR1__record.yaml` 文件。
+    - 在配置文件中，添加以下内容：
+        - 该配置表示在使用该配置文件启动 `fourier-grx` 时，启用数据记录功能，并将记录数据保存到指定路径。
+
+   ```yaml
+   record:
+      enable: true
+      path: "~/fourier-grx/record/gr1"
+   ```
+
+3. 修改启动脚本：
+    - 打开文件夹 `~/fourier-grx`，找到 `run.sh` 文件。
+    - 找到 `run_type` 字段，将其修改为 `record`：
+
+   ```bash
+   run_type="record"
+   ```
+
+   > ⚠️ **注意**：
+   >
+   > 如果后续希望机器人恢复为正常的操作模式，可以通过 `fourier-grx config` 命令来修改配置文件，或是修改 `run.sh` 文件中的 `run_type` 字段为原来的值。
+
+4. 启动机器人：
+    - 此时，机器人将会在启动时启用数据记录功能，并将记录的数据保存到指定路径。
+
+    ```bash
+    # 在 终端1 中执行以下命令
+    fourier-grx start
+    ```
+
+5. 数据分析：
+    - 数据保存格式为 CSV 文件，可以使用 Excel 或其他数据分析工具进行分析。
+    - Excel 导入时需要注意选择正确的分隔符（逗号）和编码格式（UTF-8）。
+    - 数据文件中包含时间戳、关节角度、速度等信息，方便进行后续分析。
+        - `Timestamp`: 时间戳
+        - `jm_pos_{i}`: 关节 i 的测量位置
+        - `jm_vel_{i}`: 关节 i 的测量速度
+        - `jm_tor_{i}`: 关节 i 的测量扭矩
+        - `jm_cur_{i}`: 关节 i 的测量电流
+        - `jt_pos_{i}`: 关节 i 的目标位置
+        - `jt_vel_{i}`: 关节 i 的目标速度
+        - `jt_tor_{i}`: 关节 i 的目标扭矩
+        - 关节序列参考 [关节序列](/fourier-grx-GR1/docs/reference/joint_sequence) 文档。
+
+> **说明**：
+>
+> 如果需要关闭数据记录功能，可以将配置文件中的 `record.enable` 设置为 `false`，或是删除 `record` 字段。
+
